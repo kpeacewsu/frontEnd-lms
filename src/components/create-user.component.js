@@ -1,60 +1,45 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
 
-export default class CreateUser extends Component {
+//post function
+export default class CreateBook extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
-      username: ''
+      title: '',
+      author: '',
+      price: 0,
+      publisher: '',
+      date: ''
     }
   }
 
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    })
-  }
 
   onSubmit(e) {
     e.preventDefault();
 
-    const user = {
-      username: this.state.username
+   const booksInfo = {
+      title: this.state.title,
+      author: this.state.author,
+      price: this.state.price,
+      publisher: this.state.publisher,
+      date: this.state.date
     }
 
-    console.log(user);
-
-    axios.post('http://localhost:5000/users/add', user)
+    axios.post('http://localhost:5000/bookRouter/add', booksInfo)
       .then(res => console.log(res.data));
 
-    this.setState({
-      username: ''
-    })
-  }
+    window.location = '/';
+ }
 
   render() {
     return (
-      <div>
-        <h3>Create Member</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group"> 
-            <label>Member Name: </label>
-            <input  type="text"
-                required
-                className="form-control"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                />
-          </div>
-          <div className="form-group">
-            <input type="submit" value="Create" className="btn btn-primary" />
-          </div>
-        </form>
-      </div>
+    <div>
+      <h3>Log Exercise</h3>
+     
+    </div>
     )
   }
 }
